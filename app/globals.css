@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #070708;
+  --color-bg-grid: #0b0b0d;
+  --color-surface: rgba(255, 255, 255, 0.03);
+  --color-surface-elevated: rgba(255, 255, 255, 0.06);
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.14);
+  --color-text-primary: #f5f5f7;
+  --color-text-secondary: rgba(245, 245, 247, 0.66);
+  --color-text-muted: rgba(245, 245, 247, 0.42);
+  --color-accent: #22c55e;
+  --color-accent-hover: #34d77a;
+  --color-accent-glow: rgba(34, 197, 94, 0.35);
+  --color-accent-tint: rgba(34, 197, 94, 0.08);
+
+  --font-sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-serif: var(--font-instrument-serif), "Iowan Old Style", "Apple Garamond", "Palatino Linotype", serif;
+
+  --radius-glass: 20px;
+  --radius-hero: 28px;
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-grid-drift: grid-drift 24s linear infinite;
+
+  /* Fluid type scale — scales smoothly across viewports */
+  --text-hero: clamp(2.625rem, 6.5vw, 5.625rem);        /* 42 → 90px */
+  --text-h2: clamp(2.25rem, 2vw + 1.5rem, 3rem);        /* 36 → 48px */
+  --text-h2-lg: clamp(2.25rem, 3vw + 1.25rem, 3.75rem); /* 36 → 60px */
+  --text-cta: clamp(3rem, 5vw + 1rem, 5.25rem);         /* 48 → 84px */
+  --text-stat: clamp(3.5rem, 6vw, 5.5rem);              /* 56 → 88px */
+
+  /* Fluid section padding */
+  --section-y: clamp(4rem, 6vw + 1rem, 6rem);           /* 64 → 96px */
+  --section-y-tight: clamp(3rem, 4vw + 0.5rem, 4rem);   /* 48 → 64px */
+  --section-y-loose: clamp(5rem, 8vw + 1rem, 7rem);     /* 80 → 112px */
+}
+
+@keyframes marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes grid-drift {
+  from { background-position: 0 0; }
+  to { background-position: 64px 64px; }
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    background: var(--color-bg);
+    color: var(--color-text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    background: var(--color-bg);
+    color: var(--color-text-primary);
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: #000;
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty  { text-wrap: pretty; }
+
+  .bg-grid {
+    background-color: var(--color-bg);
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+    background-position: 0 0;
+  }
+
+  .mask-radial-fade {
+    mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, #000 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, #000 30%, transparent 75%);
+  }
+
+  .mask-edges-fade {
+    mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  }
+
+  .glow-green {
+    box-shadow: 0 0 80px -10px var(--color-accent-glow);
+  }
+
+  .legal-prose {
+    color: var(--color-text-secondary);
+    font-size: 17px;
+    line-height: 1.7;
+  }
+  .legal-prose > * + * { margin-top: 1rem; }
+  .legal-prose h2 {
+    color: var(--color-text-primary);
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-top: 3rem;
+    margin-bottom: 0.75rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border-subtle);
+  }
+  .legal-prose h2:first-child { padding-top: 0; border-top: none; margin-top: 0; }
+  .legal-prose h3 {
+    color: var(--color-text-primary);
+    font-size: 17px;
+    font-weight: 500;
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .legal-prose ul {
+    padding-left: 1.25rem;
+    list-style: disc;
+  }
+  .legal-prose ul li::marker { color: var(--color-text-muted); }
+  .legal-prose ul > * + * { margin-top: 0.5rem; }
+  .legal-prose strong { color: var(--color-text-primary); font-weight: 500; }
+  .legal-prose a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-color: rgba(34, 197, 94, 0.3);
+    text-underline-offset: 4px;
+    transition: text-decoration-color 0.2s;
+  }
+  .legal-prose a:hover { text-decoration-color: var(--color-accent); }
+  .legal-prose .disclaimer {
+    color: var(--color-text-muted);
+    font-size: 14px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
