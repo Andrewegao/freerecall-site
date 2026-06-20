@@ -1,6 +1,6 @@
 export const IOS_URL =
-  "https://apps.apple.com/app/freerecall/id0000000000";
-export const IOS_APP_ID = "0000000000";
+  "https://apps.apple.com/app/freerecall/id6782357599";
+export const IOS_APP_ID = "6782357599";
 
 export const ANDROID_URL =
   "https://play.google.com/store/apps/details?id=com.qupid.freerecall";
